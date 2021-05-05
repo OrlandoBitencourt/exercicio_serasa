@@ -75,8 +75,10 @@ def generate_maintable():
 
 #import criptografia
 
-# mensagem = "Hello world"
+# mensagem = "47988888888"
 # mensagem_cifrada = crypt(mensagem)
 # print("Mensagem original: %s" % (mensagem))
 # print("Mensagem cifrada: %s" % (mensagem_cifrada))
 # print("Mensagem de retorno: %s" % (uncrypt(mensagem_cifrada)))
+
+# print(uncrypt("0ü0õUÉõÉhõe"))

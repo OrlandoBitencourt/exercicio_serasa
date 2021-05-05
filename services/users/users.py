@@ -1,5 +1,7 @@
+from bson import ObjectId
 from exercicio_serasa.services.db.db import Database
-from exercicio_serasa.services.db.security import crypt
+from exercicio_serasa.services.db.security import crypt, uncrypt
+import datetime
 
 
 class Users(Database):
@@ -20,10 +22,9 @@ class Users(Database):
             self.cpf = crypt(user_data["cpf"])
             self.email = crypt(user_data["email"])
             self.phone_number = crypt(user_data["phone_number"])
-            self.created_at = user_data["created_at"]
-            self.updated_at = user_data["updated_at"]
             return True
-        except:
+        except Exception as erro:
+            print(str(erro))
             return False
 
     def insert_user(self) -> bool:
@@ -32,11 +33,11 @@ class Users(Database):
                                    'cpf': self.cpf,
                                    'email': self.email,
                                    'phone_number': self.phone_number,
-                                   'created_at': self.created_at,
-                                   'updated_at': self.updated_at})
+                                   'created_at': str(datetime.datetime.now().strftime("%d-%m-%Y")),
+                                   'updated_at': str(datetime.datetime.now().strftime("%d-%m-%Y %H:%M:%S"))})
             return True
         except Exception as erro:
-            print(str(erro), str(erro.args))
+            print(str(erro))
         return False
 
     def list_all_users(self):
@@ -45,8 +46,41 @@ class Users(Database):
     def list_user(self, cpf: str):
         return self.users.find({'cpf': crypt(cpf)})
 
-    def update_user(self, user_data: dict) -> bool:
-        pass
-
     def delete_user(self, cpf: str) -> bool:
-        pass
+        try:
+            db_data = self.list_user(cpf)
+            user_to_delete = self.generate_data_users(db_data)
+            user_to_delete['id'] = ObjectId(user_to_delete['id'])
+        except Exception as erro:
+            print(str(erro))
+            return False
+        self.users.delete_one({"_id": user_to_delete['id']})
+        return True
+
+    def update_user(self, cpf: str, new_user_data: dict) -> bool:
+        db_data = self.list_user(cpf)
+        old_user_data = self.generate_data_users(db_data)
+
+        new_user_data = self.convert_user_data(new_user_data)
+        new_user_data['_id'] = ObjectId(old_user_data['id'])
+        new_user_data['created_at'] = old_user_data['created_at']
+        new_user_data['updated_at'] = str(datetime.datetime.now().strftime("%d-%m-%Y %H:%M:%S"))
+
+        self.users.update_one({"_id": new_user_data['_id']}, {"$set": new_user_data})
+        return True
+
+    def convert_user_data(self, user_data: dict) -> dict:
+        new_user_data = {'name': crypt(user_data['name']), 'cpf': crypt(user_data['cpf']),
+                         'email': crypt(user_data['email']), 'phone_number': crypt(user_data['phone_number'])}
+        return new_user_data
+
+    def generate_data_users(self, user_data: list) -> dict:
+        for user in user_data:
+            user_dict = ({'id': user['_id'],
+                          'name': user['name'],
+                          'cpf': user['cpf'],
+                          'email': user['email'],
+                          'phone_number': user['phone_number'],
+                          'created_at': user['created_at'],
+                          'updated_at': user['updated_at']})
+            return user_dict
