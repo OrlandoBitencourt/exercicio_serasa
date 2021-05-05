@@ -81,4 +81,4 @@ def generate_maintable():
 # print("Mensagem cifrada: %s" % (mensagem_cifrada))
 # print("Mensagem de retorno: %s" % (uncrypt(mensagem_cifrada)))
 
-# print(uncrypt("0ü0õUÉõÉhõe"))
+# print(uncrypt("0ü0õUÉõÉhõP"))

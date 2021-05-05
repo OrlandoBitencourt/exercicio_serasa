@@ -1,6 +1,6 @@
 from bson import ObjectId
 from exercicio_serasa.services.db.db import Database
-from exercicio_serasa.services.db.security import crypt, uncrypt
+from exercicio_serasa.services.db.security import crypt
 import datetime
 
 
@@ -76,7 +76,7 @@ class Users(Database):
 
     def generate_data_users(self, user_data: list) -> dict:
         for user in user_data:
-            user_dict = ({'id': user['_id'],
+            user_dict = ({'id': str(user['_id']),
                           'name': user['name'],
                           'cpf': user['cpf'],
                           'email': user['email'],
