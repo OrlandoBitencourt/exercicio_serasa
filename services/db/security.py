@@ -1,8 +1,7 @@
 # security.py
 # -*- coding: iso-8859-1 -*-
 #
-# Exemplo de um algoritmo de criptografia com chave
-# usando o algoritmo criptográfico de Cesar
+# algoritmo criptográfico de Cesar
 
 CHAVE = "dona maria tem credito"
 MAINTABLE = [
@@ -62,23 +61,3 @@ def uncrypt(text):
         pos += 1
 
     return ''.join(text)
-
-
-def generate_maintable():
-    import random
-    print("maintable = [")
-    x = list("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ,.;/áéíóúÁÉÍÓÚàÀãõÃÕüÜ")
-    for i in range(10):
-        print('    "%s",' % (''.join(x)))
-        random.shuffle(x)
-    print("]")
-
-#import criptografia
-
-# mensagem = "47988888888"
-# mensagem_cifrada = crypt(mensagem)
-# print("Mensagem original: %s" % (mensagem))
-# print("Mensagem cifrada: %s" % (mensagem_cifrada))
-# print("Mensagem de retorno: %s" % (uncrypt(mensagem_cifrada)))
-
-# print(uncrypt("0ü0õUÉõÉhõP"))
