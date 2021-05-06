@@ -97,3 +97,14 @@ class Orders(Database):
 
     def calculate_total(self, qtd: int, price: float) -> float:
         return qtd * price
+
+
+# order_1 = Orders()
+# original_data = {'id': "6092cbc4f9dfc0891202e223",
+#                          'name': "Fka;g69ãã9.ANía / eJWNn ",
+#                          'cpf': "0ü0õUÉõÉhõP",
+#                          'email': "oklÀ7cX@H5làHXgBC",
+#                          'phone_number': "4À9GJQGaGGJ",
+#                          'created_at': "05-05-2021",
+#                          'updated_at': "05-05-2021 13:45:56"}
+# print(order_1.convert_user_data(original_data))

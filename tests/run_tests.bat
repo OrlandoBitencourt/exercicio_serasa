@@ -1,0 +1,1 @@
+py -m pytest --cov=exercicio_serasa --cov-report=html
