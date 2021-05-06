@@ -51,10 +51,10 @@ class Users(Database):
             db_data = self.list_user(cpf)
             user_to_delete = self.generate_data_users(db_data)
             user_to_delete['id'] = ObjectId(user_to_delete['id'])
+            self.users.delete_one({"_id": user_to_delete['id']})
         except Exception as erro:
             print(str(erro))
             return False
-        self.users.delete_one({"_id": user_to_delete['id']})
         return True
 
     def update_user(self, cpf: str, new_user_data: dict) -> bool:

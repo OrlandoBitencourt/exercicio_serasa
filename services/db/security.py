@@ -62,3 +62,11 @@ def uncrypt(text):
         pos += 1
 
     return ''.join(text)
+
+
+# print(crypt("Fulano de Tal"))
+# print(crypt("012345678912"))
+# print(crypt("fulano@gmail.com"))
+# print(crypt("4798852920"))
+
+# print(uncrypt("0t2ayjUgSJü9"))
