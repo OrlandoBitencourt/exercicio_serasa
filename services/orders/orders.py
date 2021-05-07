@@ -1,6 +1,6 @@
 from bson import ObjectId
-from exercicio_serasa.services.db.db import Database
-from exercicio_serasa.services.db.security import uncrypt
+from db.db import Database
+from db.security import uncrypt
 import datetime
 
 

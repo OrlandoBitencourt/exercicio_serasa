@@ -1,8 +1,8 @@
 from flask import Flask, request
 import json
-from exercicio_serasa.services.users.users import Users
-from exercicio_serasa.services.db.db import Database
-from exercicio_serasa.services.db.response import gera_response
+from users import Users
+from db.db import Database
+from db.response import gera_response
 
 app = Flask(__name__)
 db = Database()
@@ -84,5 +84,6 @@ def update_user(cpf: str):
     return gera_response(400, "user", {}, "Error, unable to find and update user.")
 
 
-if __name__ == "__main__":
-    app.run(debug=True, port=5001)
+# if __name__ == "__main__":
+#     app.run(debug=True)
+# , port=5001)
