@@ -1,9 +1,9 @@
 from flask import Flask, request, Response
 import requests
 import json
-from exercicio_serasa.services.orders.orders import Orders
-from exercicio_serasa.services.db.db import Database
-from exercicio_serasa.services.db.response import gera_response
+from orders import Orders
+from db.db import Database
+from db.response import gera_response
 
 app = Flask(__name__)
 db = Database()
@@ -18,7 +18,7 @@ def health_check():
 def create_order(cpf: str):
     order = Orders()
 
-    user_data = requests.get(f'http://127.0.0.1:5001/user/{cpf}')
+    user_data = requests.get(f'http://usuarios:5001/user/{cpf}')
     crypted_user_info = user_data.json()
     if crypted_user_info['mensagem'] == 'ok':
         user_info = order.convert_user_data(crypted_user_info['user'])
@@ -64,7 +64,7 @@ def list_order_by_cpf(cpf: str):
     order = Orders()
     orders_list = []
 
-    user_data = requests.get(f'http://127.0.0.1:5001/user/{cpf}')
+    user_data = requests.get(f'http://usuarios:5001/user/{cpf}')
     crypted_user_info = user_data.json()
 
     if crypted_user_info['mensagem'] == 'ok':
@@ -112,5 +112,5 @@ def update_user(id: str):
     return gera_response(400, "order", {}, "Error, unable to find and update order.")
 
 
-if __name__ == "__main__":
-    app.run(debug=True, port=5002)
+# if __name__ == "__main__":
+#     app.run(debug=True, port=5002)

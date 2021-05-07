@@ -1,0 +1,11 @@
+docker network create netserasa
+
+(dentro do dir users)docker build . -t users
+
+(dentro do dir orders)docker build . -t orders
+
+docker container create mongo --net netserasa --net-alias mongodb --name mongodb -p 27017:27017
+
+docker container run -p 5001:5001 --net netserasa --net-alias usuarios --name USERS users
+
+docker container run -p 5002:5002 --net netserasa --net-alias pedidos --name PEDIDOS orders
